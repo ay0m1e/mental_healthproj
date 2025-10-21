@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#33ae9a">
+    <title>BDC Minds Matter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="menuBtn" class="menu-btn" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="container">
+        <header>
+            <h1>BDC Minds Matter</h1>
+        </header>
+
+        <nav id="menu" class="menu">
+            <div class="menu-content">
+                <button id="closeBtn" class="close-btn" aria-label="Close menu">&times;</button>
+                <h2>Resources</h2>
+                <ul class="menu-list">
+                    <li>
+                        <h3>Support Links</h3>
+                        <ul class="support-links">
+                            <li><a href="https://www.nhs.uk/mental-health/get-urgent-help-for-mental-health/" target="_blank" rel="noopener">NHS Mental Health Support</a></li>
+                            <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans - 116 123</a></li>
+                            <li><a href="https://www.mind.org.uk/" target="_blank" rel="noopener">Mind</a></li>
+                            <li><a href="https://www.youngminds.org.uk/" target="_blank" rel="noopener">YoungMinds</a></li>
+                            <li><a href="https://www.studentminds.org.uk/" target="_blank" rel="noopener">Student Minds</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Contact</h3>
+                        <p class="contact-info">
+                            <a href="mailto:Hellen.berends@bdc.ac.uk">Hellen.berends@bdc.ac.uk</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <div class="affirmation-card">
+                <p id="affirmation" class="affirmation-text"></p>
+            </div>
+
+            <button id="refreshBtn" class="refresh-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 4v6h-6M1 20v-6h6"/>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+                New Affirmation
+            </button>
+        </main>
+
+        <footer>
+            <p class="date" id="date"></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
