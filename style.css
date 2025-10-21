@@ -9,6 +9,7 @@ body {
     background: linear-gradient(135deg, #f5f7fa 0%, #e8f5f2 100%);
     min-height: 100vh;
     display: flex;
+    flex-direction: column; /*sets the body to be a column*/
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -41,7 +42,11 @@ header h1 {
     font-size: 1.8rem;
     font-weight: 600;
     letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .menu-btn {
     position: fixed;
@@ -265,3 +270,80 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+/*sets the mood tracker to the bottom of the page*/
+#mood-tracker {
+  clear: both;
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Apply Noto animated emoji font */
+.mood {
+    font-family: 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+    font-size: 4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover triggers animation */
+.mood.wave:hover {
+    animation: wave 1s infinite;
+}
+
+.mood.bounce:hover {
+    animation: bounce 0.6s ease;
+}
+
+.mood.spin:hover {
+    animation: spin 0.8s ease;
+}
+
+.mood.shake:hover {
+    animation: shake 0.6s ease;
+}
+
+.mood.float:hover {
+    animation: float 1s ease-in-out infinite;
+}
+
+/* Keyframes */
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    50% { transform: rotate(-15deg); }
+    75% { transform: rotate(10deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-10px); }
+    50% { transform: translateY(-20px); }
+    75% { transform: translateY(-10px); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+
+

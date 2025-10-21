@@ -6,63 +6,32 @@
     <meta name="theme-color" content="#33ae9a">
     <title>BDC Minds Matter</title>
     <link rel="stylesheet" href="style.css">
+    <title>BDC Minds Matter</title><!--added a title for professionalism.-->
 </head>
 <body>
-    <button id="menuBtn" class="menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
 
-    <div class="container">
-        <header>
-            <h1>BDC Minds Matter</h1>
-        </header>
+    <header>
+        <h1>Welcome to BDC Minds Matter </h1><!--updated the welcoming message to fit better with the rest of the page.-->
+    </header>
 
-        <nav id="menu" class="menu">
-            <div class="menu-content">
-                <button id="closeBtn" class="close-btn" aria-label="Close menu">&times;</button>
-                <h2>Resources</h2>
-                <ul class="menu-list">
-                    <li>
-                        <h3>Support Links</h3>
-                        <ul class="support-links">
-                            <li><a href="https://www.nhs.uk/mental-health/get-urgent-help-for-mental-health/" target="_blank" rel="noopener">NHS Mental Health Support</a></li>
-                            <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans - 116 123</a></li>
-                            <li><a href="https://www.mind.org.uk/" target="_blank" rel="noopener">Mind</a></li>
-                            <li><a href="https://www.youngminds.org.uk/" target="_blank" rel="noopener">YoungMinds</a></li>
-                            <li><a href="https://www.studentminds.org.uk/" target="_blank" rel="noopener">Student Minds</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h3>Contact</h3>
-                        <p class="contact-info">
-                            <a href="mailto:Hellen.berends@bdc.ac.uk">Hellen.berends@bdc.ac.uk</a>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+<main>
+  <section id="mood-tracker">
+    <h2>How are you feeling today?</h2>
+        <div class="mood-options"><!--updated the mood tracker to include links to the second HTML page-->
+    <a href="main-page.html"><button class="mood wave" data-mood="happy">😊</button></a>
+    <a href="main-page.html"><button class="mood spin" data-mood="neutral">😐</button></a>
+    <a href="main-page.html"><button class="mood bounce" data-mood="sad">😢</button></a>
+    <a href="main-page.html"><button class="mood shake" data-mood="angry">😠</button></a>
+    <a href="main-page.html"><button class="mood float" data-mood="tired">😴</button></a>
+</div>
 
-        <main>
-            <div class="affirmation-card">
-                <p id="affirmation" class="affirmation-text"></p>
-            </div>
+        <p id="mood-message"></p>
+  </section>
 
-            <button id="refreshBtn" class="refresh-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 4v6h-6M1 20v-6h6"/>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-                </svg>
-                New Affirmation
-            </button>
-        </main>
+</main>
 
-        <footer>
-            <p class="date" id="date"></p>
-        </footer>
-    </div>
+<!--updated the first page the user sees to include a mood tracker-->
 
-    <script src="script.js"></script>
-</body>
-</html>
+
+
+        
