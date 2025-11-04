@@ -6,32 +6,43 @@
     <meta name="theme-color" content="#33ae9a">
     <title>BDC Minds Matter</title>
     <link rel="stylesheet" href="style.css">
-    <title>BDC Minds Matter</title><!--added a title for professionalism.-->
 </head>
-<body>
+<body class="landing-body">
+    <div class="ambient-orbs" aria-hidden="true">
+        <span class="orb orb-one"></span>
+        <span class="orb orb-two"></span>
+        <span class="orb orb-three"></span>
+    </div>
 
-    <header>
-        <h1>Welcome to BDC Minds Matter </h1><!--updated the welcoming message to fit better with the rest of the page.-->
+    <!-- Landing header introduces the app with a supportive prompt for visitors. -->
+    <header class="landing-header" role="banner">
+        <h1>Welcome to BDC Minds Matter</h1>
+        <p class="landing-subtitle">Take a moment to check in with yourself and follow the support that fits your mood.</p>
     </header>
 
-<main>
-  <section id="mood-tracker">
-    <h2>How are you feeling today?</h2>
-        <div class="mood-options"><!--updated the mood tracker to include links to the second HTML page-->
-    <a href="main-page.html"><button class="mood wave" data-mood="happy">😊</button></a>
-    <a href="main-page.html"><button class="mood spin" data-mood="neutral">😐</button></a>
-    <a href="main-page.html"><button class="mood bounce" data-mood="sad">😢</button></a>
-    <a href="main-page.html"><button class="mood shake" data-mood="angry">😠</button></a>
-    <a href="main-page.html"><button class="mood float" data-mood="tired">😴</button></a>
-</div>
+    <main class="landing-main">
+        <section id="mood-tracker" class="landing-card" aria-labelledby="mood-title">
+            <h2 id="mood-title">How are you feeling today?</h2>
+            <p class="mood-lead">Choose the emoji that matches your mood to continue to your personalised support hub.</p>
 
-        <p id="mood-message"></p>
-  </section>
+            <!-- Mood options stay as anchors so navigation remains accessible while JS hooks keep working. -->
+            <div class="mood-options" role="group" aria-label="Mood options">
+                <a href="main-page.html" class="mood wave" data-mood="happy" aria-label="Feeling happy">😊</a>
+                <a href="main-page.html" class="mood spin" data-mood="neutral" aria-label="Feeling neutral">😐</a>
+                <a href="main-page.html" class="mood bounce" data-mood="sad" aria-label="Feeling sad">😢</a>
+                <a href="main-page.html" class="mood shake" data-mood="angry" aria-label="Feeling angry">😠</a>
+                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😴</a>
+            </div>
 
-</main>
+            <p id="mood-message" class="mood-message" aria-live="polite"></p>
 
-<!--updated the first page the user sees to include a mood tracker-->
+            <!-- Primary link reiterates the next step for users who prefer text guidance. -->
+            <a class="primary-link" href="main-page.html">Start with today's support</a>
+        </section>
+    </main>
 
-
-
-        
+    <footer class="landing-footer">
+        <p>BDC support is always here when you need a reset.</p>
+    </footer>
+</body>
+</html>
