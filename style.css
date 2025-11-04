@@ -199,21 +199,45 @@ body::after {
     font-size: clamp(2.9rem, 6.2vw, 3.8rem);
     width: clamp(78px, 12vw, 104px);
     aspect-ratio: 1;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 26px;
-    background: #ffffff;
-    border: 1px solid rgba(51, 174, 154, 0.2);
-    box-shadow: 0 14px 32px rgba(51, 174, 154, 0.22);
+    background: var(--surface-glass);
+    border-radius: 50%;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-decoration: none;
     color: inherit;
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mood::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+.mood:active::before {
+    opacity: 1;
 }
 
 .mood:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 22px 42px rgba(51, 174, 154, 0.28);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(51, 174, 154, 0.28);
+}
+
+.mood:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
     border-color: rgba(45, 154, 133, 0.35);
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 242, 0.92));
 }
@@ -233,16 +257,55 @@ body::after {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 16px 34px;
-    border-radius: 999px;
+    margin-top: 32px;
+    padding: 14px 32px;
     background: var(--brand-teal);
-    color: #ffffff;
-    font-weight: 600;
-    letter-spacing: 0.35px;
+    color: white;
     text-decoration: none;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    box-shadow: 0 18px 40px rgba(51, 174, 154, 0.36);
+    border-radius: 999px;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 24px rgba(51, 174, 154, 0.3);
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 220px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.05rem;
+}
+
+.primary-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 999px;
+}
+
+.primary-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(51, 174, 154, 0.4);
+    background: var(--brand-teal-dark);
+}
+
+.primary-link:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 16px rgba(51, 174, 154, 0.3);
+}
+
+.primary-link:active::before {
+    opacity: 1;
+}
+
+.primary-link:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 3px;
 }
 
 .primary-link::after {
@@ -340,18 +403,24 @@ header h1 {
     position: fixed;
     left: clamp(18px, 5vw, 32px);
     top: clamp(18px, 4vw, 32px);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(51, 174, 154, 0.25);
-    box-shadow: 0 18px 42px rgba(51, 174, 154, 0.3);
+    box-shadow: 0 8px 32px rgba(51, 174, 154, 0.25);
     cursor: pointer;
-    padding: 12px;
+    padding: 14px 12px;
     z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     border-radius: 18px;
-    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     backdrop-filter: blur(12px);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-width: 50px;
+    min-height: 50px;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu-btn:hover {
@@ -382,16 +451,43 @@ header h1 {
 .menu {
     position: fixed;
     top: 0;
-    left: -100%;
-    width: 100%;
+    left: 0;
+    width: 85%;
     max-width: 380px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 2px 0 30px rgba(44, 62, 80, 0.18);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 2px 0 30px rgba(44, 62, 80, 0.2);
     z-index: 2000;
-    transition: left 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     overflow-y: auto;
-    backdrop-filter: blur(var(--blur-backdrop));
+    -webkit-overflow-scrolling: touch;
+    transform: translate3d(-100%, 0, 0);
+    will-change: transform;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu.active {
+    transform: translate3d(0, 0, 0);
+}
+
+/* Menu overlay for better mobile UX */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1999;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    backdrop-filter: blur(2px);
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 .menu::before {
@@ -413,20 +509,25 @@ header h1 {
 
 .close-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.04);
     border: none;
-    font-size: 2.6rem;
+    border-radius: 50%;
+    font-size: 2.2rem;
     color: #7f8c8d;
     cursor: pointer;
     line-height: 1;
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s ease;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    padding: 0;
+    margin: 0;
 }
 
 .close-btn:hover {
@@ -474,6 +575,25 @@ header h1 {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    padding: 10px 0;
+    margin: -10px 0;
+    padding-left: 10px;
+    margin-left: -10px;
+    border-radius: 8px;
+}
+
+/* Improve touch targets for mobile */
+.support-links a {
+    min-height: 44px;
+    padding: 12px 16px;
+    margin: 4px 0;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.support-links a:active {
+    background-color: rgba(51, 174, 154, 0.1);
+    transform: scale(0.98);
 }
 
 .support-links a::before {
@@ -506,17 +626,20 @@ header h1 {
 }
 
 .affirmation-card {
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(232, 245, 242, 0.88));
-    padding: clamp(50px, 8vw, 70px);
+    background: var(--surface-glass);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-glow);
-    min-height: 270px;
+    padding: 40px 32px;
+    margin: 0 0 48px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    position: relative;
-    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
 .affirmation-card::after {
@@ -550,17 +673,21 @@ header h1 {
     border: none;
     padding: 16px 36px;
     border-radius: 999px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 18px 42px rgba(51, 174, 154, 0.34);
-    margin: 0 auto;
+    margin: 24px auto 0;
+    margin-left: 24px;
+    margin-right: 24px;
     position: relative;
+    min-width: 220px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .refresh-btn::after {
@@ -577,6 +704,11 @@ header h1 {
     background: var(--brand-teal-dark);
     transform: translateY(-3px);
     box-shadow: 0 24px 52px rgba(51, 174, 154, 0.42);
+}
+
+.refresh-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 12px 28px rgba(51, 174, 154, 0.32);
 }
 
 .refresh-btn:hover::after {
