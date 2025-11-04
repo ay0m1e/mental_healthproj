@@ -6,25 +6,30 @@
     <meta name="theme-color" content="#33ae9a">
     <title>BDC Minds Matter</title>
     <link rel="stylesheet" href="style.css">
-    <title>BDC Minds Matter</title><!--added a title for professionalism.-->
 </head>
-<body>
+<body class="hub-body">
+    <div class="ambient-orbs" aria-hidden="true">
+        <span class="orb orb-one"></span>
+        <span class="orb orb-two"></span>
+        <span class="orb orb-three"></span>
+    </div>
+
+    <!-- hub-body spacing keeps the floating controls clear of content sections. -->
     <button id="menuBtn" class="menu-btn" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <div class="container">
-        <header>
+    <div class="container hub-container">
+        <header class="hub-header">
             <h1>BDC Minds Matter</h1>
+            <!-- Header tagline helps teammates remember the page purpose at a glance. -->
+            <p class="landing-subtitle hub-tagline">Daily affirmations and trusted BDC resources to ground your day.</p>
         </header>
 
-  
-
-
-        
-        <nav id="menu" class="menu">
+        <!-- Navigation landmark clarifies the slide-out resource menu for assistive tech. -->
+        <nav id="menu" class="menu" role="navigation" aria-label="Support resources">
             <div class="menu-content">
                 <button id="closeBtn" class="close-btn" aria-label="Close menu">&times;</button>
                 <h2>Resources</h2>
@@ -67,9 +72,6 @@
             <p class="date" id="date"></p>
         </footer>
     </div>
-
-  
-
 
     <script src="script.js"></script>
 </body>
