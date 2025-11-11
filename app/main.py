@@ -56,10 +56,10 @@ def generate_affirmation_llm(mood: str):
     try:
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         prompt = (
-            f"You're a supportive teenage friend giving pep talks. "
-            f"Use Gen Z slang naturally (nothing cringe), sound chill and genuine, not robotic. "
-            f"Write a one-sentence, motivational affirmation for a fellow teen who's feeling {mood}. "
-            f"Keep it under 25 words. with British standard spellings"
+            f"Write a short, warm, natural affirmation for a young person who's feeling {mood}. "
+            f"Use simple, everyday language — empathetic, uplifting, and genuine. "
+            f"No exaggerated slang, no emojis, no em-dashes, no gender references. "
+            f"Keep it under 25 words with British standard spellings and make it sound like real encouragement from a peer."
         )
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
