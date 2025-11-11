@@ -59,7 +59,7 @@ def generate_affirmation_llm(mood: str):
             f"Write a short, empathetic, emotionally supportive affirmation for a college student feeling {mood}. Keep it under 30 words and use British standard spellings."
         )
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.9,
             max_tokens=60,
