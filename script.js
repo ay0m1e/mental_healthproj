@@ -20,7 +20,7 @@ async function fetchAffirmation(mood = "neutral") {
   try {
     console.log("Sending mood:", mood);
 
-    const res = await fetch("http://127.0.0.1:8000/api/mood", {
+    const res = await fetch("https://mental-healthproj.onrender.com/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mood }),
