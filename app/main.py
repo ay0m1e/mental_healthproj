@@ -5,7 +5,11 @@ from .models import MoodEntry
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from fastapi.middleware.cors import CORSMiddleware
+from groq import Groq
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # The FastAPI instance is the core application object shared by all routes.
 # Think of this as the meeting point where routers, middleware, etc. get plugged in.
 app = FastAPI(title="Mental Health API")
@@ -47,13 +51,23 @@ class MoodIn(BaseModel):
 
 # In-memory source of truth for affirmations. Easy to tweak copy here;
 # later we can move this to a database table.
-AFFIRMATIONS = {
-    "happy": "Keep shining, your joy inspires others.",
-    "sad": "It’s okay to feel low. You’re stronger than you think.",
-    "angry": "Take a deep breath. Calm creates clarity.",
-    "tired": "Pause. You deserve rest and peace.",
-    "neutral": "A balanced day is a good day.",
-}
+def generate_affirmation_llm(mood: str):
+    """Generate an emotional affirmation using Groq's Llama 3 8B model."""
+    try:
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        prompt = (
+            f"Write a short, empathetic, emotionally supportive affirmation for a college student feeling {mood}. Keep it under 30 words and use British standard spellings."
+        )
+        response = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.9,
+            max_tokens=60,
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print("Groq LLM error:", e)
+        return "You are enough, even when life feels overwhelming."
 
 
 @app.post("/api/mood")
@@ -63,12 +77,12 @@ def get_affirmation(data: MoodIn, db: Session = Depends(get_db)):
     the matching affirmation. Dependencies inject the DB session so adding
     analytics writes stays localized to this function.
     """
-    mood = data.mood.lower()
-    message = AFFIRMATIONS.get(mood, "Stay mindful today.")
+    mood = data.mood.lower().strip()
+    ai_message = generate_affirmation_llm(mood)
 
     # Store the raw mood so we can build weekly/monthly trend charts later.
     entry = MoodEntry(mood=mood)
     db.add(entry)
     db.commit()
 
-    return {"affirmation": message}
+    return {"affirmation": ai_message}
