@@ -4,11 +4,32 @@ from .database import Base, engine, SessionLocal
 from .models import MoodEntry
 from sqlalchemy.orm import Session
 from fastapi import Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 # The FastAPI instance is the core application object shared by all routes.
 # Think of this as the meeting point where routers, middleware, etc. get plugged in.
 app = FastAPI(title="Mental Health API")
 
+origins = [
+    # for Live Server in VS Code
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://127.0.0.1:5501",
+    "http://127.0.0.1:5502",
+    "http://localhost:5502",
+    "http://localhost:5501",   # alternate local address
+]
+
+app.add_middleware(
+    #This lets the website (which runs from 127.0.0.1:5500 when i use the Live Server extension)
+    #send requests to the backend (127.0.0.1:8000).
+    #Without this, the browser would block my fetch() calls.
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Auto-create tables on boot so local teammates do not have to run migrations.
 # In production we would gate this behind alembic migrations, but this keeps dev fast.
 Base.metadata.create_all(bind=engine)

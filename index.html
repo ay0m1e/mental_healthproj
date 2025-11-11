@@ -67,6 +67,18 @@
         </div>
     </footer>
     
-    
+    <script>
+        // Handle mood selection
+        document.querySelectorAll('.mood').forEach(button => {
+            button.addEventListener('click', event => {
+            const mood = button.getAttribute('data-mood');
+            if (mood) {
+                // Save mood so main-page.html can use it
+                sessionStorage.setItem('selectedMood', mood);
+            }
+            });
+        });
+    </script>
+  
 </body>
 </html>
