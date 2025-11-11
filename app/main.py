@@ -34,8 +34,8 @@ class MoodIn(BaseModel):
     mood: str
 
 
-# In-memory source of truth for affirmations. Easy to tweak copy here while the
-# product team experiments; later we can move this to a database table.
+# In-memory source of truth for affirmations. Easy to tweak copy here;
+# later we can move this to a database table.
 AFFIRMATIONS = {
     "happy": "Keep shining, your joy inspires others.",
     "sad": "It’s okay to feel low. You’re stronger than you think.",
