@@ -3,6 +3,12 @@
     --brand-teal-dark: #2d9a85;
     --brand-deep: #2c3e50;
     --brand-soft: #e8f5f2;
+    --brand-yellow: #f9d65c;
+    --brand-pink: #ff9eb5;
+    --brand-blue: #5a7bdc;
+    --brand-grey: #b6b6b6;
+    --brand-red: #ff6b6b;
+    --brand-lavender: #c7b8ea;
     --surface-glass: rgba(255, 255, 255, 0.88);
     --surface-strong: rgba(255, 255, 255, 0.94);
     --shadow-soft: 0 16px 36px rgba(51, 174, 154, 0.18);
@@ -35,12 +41,113 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding: var(--body-spacing);
-    background:
-        radial-gradient(circle at 12% 20%, rgba(51, 174, 154, 0.18), transparent 42%),
-        radial-gradient(circle at 88% 12%, rgba(45, 154, 133, 0.16), transparent 48%),
-        linear-gradient(140deg, #f5f7fa 10%, var(--brand-soft) 45%, #f0fbf8 100%);
-    position: relative;
-    overflow-x: hidden;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(51, 174, 154, 0.18), transparent 42%),
+    radial-gradient(circle at 88% 12%, rgba(45, 154, 133, 0.16), transparent 48%),
+    linear-gradient(135deg, #f5f7fa, var(--brand-soft), #e0fff7);
+  background-size: 300% 300%;
+  animation: softGradient 30s ease infinite;
+}
+
+
+
+
+
+#mood-title { /* Site Header */
+    z-index: 3;
+}
+
+.site-header {
+    position: static;
+    padding: 20px 20px 0 0;
+    margin: 0;
+    background: none;
+    border: none;
+    text-align: right;
+}
+
+/*styled the logo to be visible with the rest of the page*/
+.site-logo {
+    height: 100px; 
+    width: auto;
+    max-width: 400px; 
+    display: block;
+    filter: 
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) 
+        brightness(1.05)
+        contrast(1.1); 
+    mix-blend-mode: multiply;
+}
+
+/* Center logo on index page for desktop */
+.landing-body .landing-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0 0 0;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.landing-body .site-logo {
+    height: 120px; /* Increased size */
+    width: auto;
+    max-width: 400px; /* Increased max width */
+    margin: 0 auto 20px; /* Center and add space below */
+    display: block;
+}
+
+/* Keep right alignment for main page */
+.hub-body .site-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 20px 20px 0 0;
+    margin: 0;
+    z-index: 10;
+}
+
+/* Mobile-specific logo positioning */
+@media (max-width: 768px) {
+    .site-header {
+        position: relative;
+        width: 100%;
+        text-align: right;
+        padding: 10px 15px 0 0;
+        margin: 0;
+        top: 0;
+        right: 0;
+    }
+    
+    .hub-body .site-logo {
+        height: 75px;
+        max-width: 200px;
+        margin-left: auto;
+        display: inline-block;
+        margin-right: 0;
+    }
+
+    .landing-body .site-logo {
+        height: 100px; /* Larger on mobile */
+        max-width: 300px; /* Wider on mobile */
+        margin: 0 auto 15px; /* Center and add space below */
+        display: block;
+    }
+}
+
+
+
+/* Adjust main content spacing */
+.landing-main, .hub-container {
+    padding-top: 140px;
+}
+
+@media (max-width: 768px) {
+    .landing-main, .hub-container {
+        padding-top: 20px;
+    }
 }
 
 body::before {
@@ -180,6 +287,16 @@ body::after {
     pointer-events: none;
 }
 
+.mood[data-mood="happy"]:hover {
+    box-shadow: 0 0 25px var(--brand-yellow), 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.mood[data-mood="sad"]:hover {
+    box-shadow: 0 0 25px var(--brand-blue);
+}
+
+
+
 .mood-lead {
     color: rgba(44, 62, 80, 0.75);
     font-size: clamp(1.02rem, 2.2vw, 1.12rem);
@@ -242,10 +359,56 @@ body::after {
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.98), rgba(232, 245, 242, 0.92));
 }
 
-.mood:focus-visible {
-    outline: 3px solid rgba(51, 174, 154, 0.5);
-    outline-offset: 6px;
+/* Specific hover glow colours per mood */
+.mood[data-mood="happy"]:hover {
+  box-shadow: 0 0 25px var(--brand-yellow), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
+
+.mood[data-mood="sad"]:hover {
+  box-shadow: 0 0 25px var(--brand-blue), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mood[data-mood="angry"]:hover {
+  box-shadow: 0 0 25px var(--brand-red), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mood[data-mood="tired"]:hover {
+  box-shadow: 0 0 25px var(--brand-lavender), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mood[data-mood="neutral"]:hover {
+  box-shadow: 0 0 25px var(--brand-grey), 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.mood:focus-visible {
+    outline: 3px solid var(--brand-teal);
+    outline-offset: 4px;
+}
+
+:focus-visible {
+    outline: 3px solid var(--brand-teal);
+    outline-offset: 4px;
+}
+
+.mood[data-mood="happy"]:hover { animation: bounce 0.8s ease infinite; }
+.mood[data-mood="sad"]:hover { animation: float 1.5s ease-in-out infinite; }
+.mood[data-mood="angry"]:hover { animation: shake 0.6s ease infinite; }
+.mood[data-mood="tired"]:hover { animation: wave 1.2s ease-in-out infinite; }
+.mood, .menu, .container, .affirmation-card {
+  will-change: transform;
+}
+
+
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 4px;
+  }
+}
+
+
+
 
 .mood-message {
     min-height: 26px;
@@ -400,7 +563,7 @@ header h1 {
 }
 
 .menu-btn {
-    position: fixed;
+    position: absolute;
     left: clamp(18px, 5vw, 32px);
     top: clamp(18px, 4vw, 32px);
     background: rgba(255, 255, 255, 0.96);
@@ -408,7 +571,7 @@ header h1 {
     box-shadow: 0 8px 32px rgba(51, 174, 154, 0.25);
     cursor: pointer;
     padding: 14px 12px;
-    z-index: 1000;
+    z-index: 1; /* changed the x-index to 1 so button stacks with rest of the page*/
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -508,7 +671,7 @@ header h1 {
 }
 
 .close-btn {
-    position: absolute;
+    position: absolute; /*changed the position to absolute to make it stay in the top right corner*/
     top: 16px;
     right: 16px;
     background: rgba(0, 0, 0, 0.04);
@@ -539,6 +702,8 @@ header h1 {
     font-size: 1.55rem;
     margin-bottom: 26px;
     font-weight: 600;
+    position: fixed;
+    top: 0;
 }
 
 .menu-list {
@@ -657,6 +822,31 @@ header h1 {
     box-shadow: 0 40px 70px rgba(51, 174, 154, 0.28);
 }
 
+.affirmation-card[data-mood="happy"] {
+    background: linear-gradient(160deg, rgba(249, 214, 92, 0.15), rgba(255 255, 255, 0.9));
+    box-shadow: 0 12px 36px rgba(249, 214, 92, 0.25);
+}
+
+.affirmation-card[data-mood="neutral"] {
+    background: linear-gradient(160deg, rgba(182, 182, 182, 0.15), rgba(255 255, 255, 0.9));
+    box-shadow: 0 12px 36px rgba(182, 182, 182, 0.25);
+}
+
+.affirmation-card[data-mood="sad"] {
+    background: linear-gradient(160deg, rgba(90, 123, 220, 0.15), rgba(255 255, 255, 0.9));
+    box-shadow: 0 12px 36px rgba(90, 123, 220, 0.25);
+}
+
+.affirmation-card[data-mood="angry"] {
+    background: linear-gradient(160deg, rgba(255, 107, 107, 0.15), rgba(255 255, 255, 0.9));
+    box-shadow: 0 12px 36px rgba(255, 107, 107, 0.25);
+}
+
+.affirmation-card[data-mood="tired"] {
+    background: linear-gradient(160deg, rgba(199, 184, 234, 0.15), rgba(255 255, 255, 0.9));
+    box-shadow: 0 12px 36px rgba(199, 184, 234, 0.25);
+}
+
 .affirmation-text {
     font-size: clamp(1.32rem, 3.4vw, 1.58rem);
     line-height: 1.85;
@@ -666,6 +856,16 @@ header h1 {
     animation: slideIn 0.5s ease-out;
     max-width: 480px;
 }
+
+.affirmation-text {
+    transition: color 0.3s ease;
+}
+
+.affirmation-text.happy { color: var(--brand-yellow); }
+.affirmation-text.neutral { color: var(--brand-grey); }
+.affirmation-text.sad { color: var(--brand-blue); }
+.affirmation-text.angry { color: var(--brand-red); }
+.affirmation-text.tired { color: var(--brand-blue); }
 
 .refresh-btn {
     background: var(--brand-teal);
@@ -900,6 +1100,18 @@ footer {
     }
     100% {
         transform: translate(0, 0) scale(1);
+    }
+}
+
+@keyframes softGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 
