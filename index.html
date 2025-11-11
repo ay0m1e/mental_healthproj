@@ -34,15 +34,15 @@
             <div class="mood-options" role="group" aria-label="Mood options">
                 <a href="main-page.html" class="mood wave" data-mood="happy" aria-label="Feeling happy">😊</a>
                 <a href="main-page.html" class="mood spin" data-mood="neutral" aria-label="Feeling neutral">😐</a>
-                <a href="main-page.html" class="mood bounce" data-mood="sad" aria-label="Feeling sad">😢</a>
+                <a href="main-page.html" class="mood bounce" data-mood="sad" aria-label="Feeling sad">😔</a>
                 <a href="main-page.html" class="mood shake" data-mood="angry" aria-label="Feeling angry">😠</a>
-                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😴</a>
+                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😫</a>
             </div>
 
             <p id="mood-message" class="mood-message" aria-live="polite"></p>
 
             <!-- Primary link reiterates the next step for users who prefer text guidance. -->
-            <a class="primary-link" href="main-page.html">Start with today's support</a>
+            <a class="primary-link" href="main-page.html" data-mood="neutral">Start with today's support</a>
             <p class="footer-tagline">BDC support is always here when you need a reset.</p>
         </section>
     </main>
@@ -72,6 +72,18 @@
         </div>
     </footer>
     
-    
+    <script>
+        // Handle mood selection
+        document.querySelectorAll('.mood').forEach(button => {
+            button.addEventListener('click', event => {
+            const mood = button.getAttribute('data-mood');
+            if (mood) {
+                // Save mood so main-page.html can use it
+                sessionStorage.setItem('selectedMood', mood);
+            }
+            });
+        });
+    </script>
+  
 </body>
 </html>
