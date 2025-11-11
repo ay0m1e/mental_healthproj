@@ -13,10 +13,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 # SQLite runs in-process, so we disable the same-thread guard to let FastAPI spawn
 # multiple requests concurrently. echo=False keeps logs quiet unless we need SQL traces.
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"check_same_thread": False},
-)
+engine = create_engine(DATABASE_URL)
 
 # Sessions give each request its own scoped view of the database.
 # autoflush/autocommit stay False so we explicitly control when writes happen.
