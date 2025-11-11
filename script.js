@@ -20,7 +20,7 @@ async function fetchAffirmation(mood = "neutral") {
   try {
     console.log("Sending mood:", mood);
 
-    const res = await fetch("https://mental-healthproj.onrender.com/", {
+    const res = await fetch("https://mental-healthproj.onrender.com/api/mood", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mood }),
