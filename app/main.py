@@ -51,7 +51,7 @@ AFFIRMATIONS = {
     "happy": "Keep shining, your joy inspires others.",
     "sad": "It’s okay to feel low. You’re stronger than you think.",
     "angry": "Take a deep breath. Calm creates clarity.",
-    "stressed": "Pause. You deserve rest and peace.",
+    "tired": "Pause. You deserve rest and peace.",
     "neutral": "A balanced day is a good day.",
 }
 
