@@ -56,10 +56,12 @@ def generate_affirmation_llm(mood: str):
     try:
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         prompt = (
-            f"Write a short, warm, natural affirmation for a young person who's feeling {mood}. "
-            f"Use simple, everyday language — empathetic, uplifting, and genuine. "
-            f"No exaggerated slang, no emojis, no em-dashes, no gender references. "
-            f"Keep it under 25 words with British standard spellings and make it sound like real encouragement from a peer."
+            f"You’re writing a short, meaningful affirmation for a college student who feels {mood}. "
+            f"Match your tone to their emotion: if they’re happy, celebrate gently; if they’re sad or tired, comfort softly; "
+            f"if they’re angry, help them find calm; if they’re neutral, offer reflection or purpose. "
+            f"Write something emotionally intelligent, under 30 words, using natural British English. "
+            f"Avoid clichés, quotes, slang, emojis, and any gendered language. "
+            f"Sound like a thoughtful peer — genuine, grounded, and worth coming back to read again."
         )
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
