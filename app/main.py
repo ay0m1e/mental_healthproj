@@ -10,23 +10,12 @@ from fastapi.middleware.cors import CORSMiddleware
 # Think of this as the meeting point where routers, middleware, etc. get plugged in.
 app = FastAPI(title="Mental Health API")
 
-origins = [
-    # for Live Server in VS Code
-    "https://ay0m1e.github.io/mental_healthproj/",
-    "http://127.0.0.1:5500",
-    "http://localhost:5500",
-    "http://127.0.0.1:5501",
-    "http://127.0.0.1:5502",
-    "http://localhost:5502",
-    "http://localhost:5501",   # alternate local address
-]
-
 app.add_middleware(
     #This lets the website (which runs from 127.0.0.1:5500 when i use the Live Server extension)
     #send requests to the backend (127.0.0.1:8000).
     #Without this, the browser would block my fetch() calls.
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"], # accept requests from any domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
