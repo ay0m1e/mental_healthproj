@@ -38,6 +38,7 @@ const menuBtn = document.getElementById('menuBtn');
 const menu = document.getElementById('menu');
 const closeBtn = document.getElementById('closeBtn');
 const body = document.body;
+const affirmationCard = document.querySelector('.affirmation-card'); // 🌈 NEW
 
 // Display current date
 function updateDate() {
@@ -53,16 +54,25 @@ function getRandomAffirmation() {
 }
 
 // Display affirmation with animation
-function displayAffirmation() {
+function displayAffirmation(mood) { // 🌈 allow optional mood argument
     affirmationElement.style.animation = 'none';
     setTimeout(() => {
         affirmationElement.textContent = getRandomAffirmation();
         affirmationElement.style.animation = 'slideIn 0.5s ease-out';
     }, 50);
+
+    // 🌈 If a mood is passed, visually sync the card and text color
+    if (mood) {
+        affirmationElement.className = `affirmation-text ${mood}`;
+        if (affirmationCard) affirmationCard.setAttribute('data-mood', mood);
+    }
 }
 
 // Event listener for refresh button
-refreshBtn.addEventListener('click', displayAffirmation);
+refreshBtn.addEventListener('click', () => {
+    const currentMood = affirmationCard?.getAttribute('data-mood') || null;
+    displayAffirmation(currentMood); // keep color when refreshing
+});
 
 // Smooth click handling function
 function handleSmoothClick(element, callback) {
@@ -82,7 +92,7 @@ function handleSmoothClick(element, callback) {
         // Navigate after a very short delay for the animation
         setTimeout(() => {
             window.location.href = href;
-        }, 80); // Reduced from 150ms to 80ms for faster transition
+        }, 80); 
     });
 }
 
@@ -92,6 +102,10 @@ document.querySelectorAll('.mood').forEach(emoji => {
         const mood = element.getAttribute('data-mood');
         if (mood) {
             sessionStorage.setItem('selectedMood', mood);
+
+            // 🌈 Immediately update affirmation and card hue
+            displayAffirmation(mood);
+            if (affirmationCard) affirmationCard.setAttribute('data-mood', mood);
         }
     });
 });
@@ -166,7 +180,6 @@ menu.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX;
     const touchDiff = touchStartX - touchEndX;
     
-    // If swiped left more than 50px, close the menu
     if (touchDiff > 50) {
         toggleMenu(false);
     }
