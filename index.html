@@ -7,62 +7,42 @@
     <title>BDC Minds Matter</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <button id="menuBtn" class="menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <div class="container">
-        <header>
-            <h1>BDC Minds Matter</h1>
-        </header>
-
-        <nav id="menu" class="menu">
-            <div class="menu-content">
-                <button id="closeBtn" class="close-btn" aria-label="Close menu">&times;</button>
-                <h2>Resources</h2>
-                <ul class="menu-list">
-                    <li>
-                        <h3>Support Links</h3>
-                        <ul class="support-links">
-                            <li><a href="https://www.nhs.uk/mental-health/get-urgent-help-for-mental-health/" target="_blank" rel="noopener">NHS Mental Health Support</a></li>
-                            <li><a href="https://www.samaritans.org/" target="_blank" rel="noopener">Samaritans - 116 123</a></li>
-                            <li><a href="https://www.mind.org.uk/" target="_blank" rel="noopener">Mind</a></li>
-                            <li><a href="https://www.youngminds.org.uk/" target="_blank" rel="noopener">YoungMinds</a></li>
-                            <li><a href="https://www.studentminds.org.uk/" target="_blank" rel="noopener">Student Minds</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h3>Contact</h3>
-                        <p class="contact-info">
-                            <a href="mailto:Hellen.berends@bdc.ac.uk">Hellen.berends@bdc.ac.uk</a>
-                        </p>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <main>
-            <div class="affirmation-card">
-                <p id="affirmation" class="affirmation-text"></p>
-            </div>
-
-            <button id="refreshBtn" class="refresh-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M23 4v6h-6M1 20v-6h6"/>
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-                </svg>
-                New Affirmation
-            </button>
-        </main>
-
-        <footer>
-            <p class="date" id="date"></p>
-        </footer>
+<body class="landing-body">
+    <div class="ambient-orbs" aria-hidden="true">
+        <span class="orb orb-one"></span>
+        <span class="orb orb-two"></span>
+        <span class="orb orb-three"></span>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Landing header introduces the app with a supportive prompt for visitors. -->
+    <header class="landing-header" role="banner">
+        <h1>Welcome to BDC Minds Matter</h1>
+        <p class="landing-subtitle">Take a moment to check in with yourself and follow the support that fits your mood.</p>
+    </header>
+
+    <main class="landing-main">
+        <section id="mood-tracker" class="landing-card" aria-labelledby="mood-title">
+            <h2 id="mood-title">How are you feeling today?</h2>
+            <p class="mood-lead">Choose the emoji that matches your mood to continue to your personalised support hub.</p>
+
+            <!-- Mood options stay as anchors so navigation remains accessible while JS hooks keep working. -->
+            <div class="mood-options" role="group" aria-label="Mood options">
+                <a href="main-page.html" class="mood wave" data-mood="happy" aria-label="Feeling happy">😊</a>
+                <a href="main-page.html" class="mood spin" data-mood="neutral" aria-label="Feeling neutral">😐</a>
+                <a href="main-page.html" class="mood bounce" data-mood="sad" aria-label="Feeling sad">😢</a>
+                <a href="main-page.html" class="mood shake" data-mood="angry" aria-label="Feeling angry">😠</a>
+                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😴</a>
+            </div>
+
+            <p id="mood-message" class="mood-message" aria-live="polite"></p>
+
+            <!-- Primary link reiterates the next step for users who prefer text guidance. -->
+            <a class="primary-link" href="main-page.html">Start with today's support</a>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <p>BDC support is always here when you need a reset.</p>
+    </footer>
 </body>
 </html>

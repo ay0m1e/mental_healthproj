@@ -11,7 +11,7 @@ def health():
 class MoodIn(BaseModel):
     mood: str
     
-AFFIRM = {
+AFFIRMATIONS = {
     "happy": "Keep shining, your joy inspires others.",
     "sad": "It’s okay to feel low. You’re stronger than you think.",
     "angry": "Take a deep breath. Calm creates clarity.",
@@ -20,5 +20,7 @@ AFFIRM = {
 }
 
 @app.post("/api/mood")
-def get_affirmation(payload: MoodIn):
-    return {"affirmation": AFFIRM.get(payload.mood.lower(), "Stay mindful today")}
+def get_affirmation(data: MoodIn):
+    mood = data.mood.lower()
+    message = AFFIRMATIONS.get(mood, "Stay mindful today.")
+    return {"affirmation": AFFIRMATIONS.get(payload.mood.lower(), "Stay mindful today")}
