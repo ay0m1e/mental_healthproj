@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="hub-body">
+    <div class="logo-wrapper">
+        <img src="barking-dagenham-college-logo.png" alt="BDC Logo">
+        <img src="logo-main.png" alt="Puzzle Heart Logo">
+    </div>
     <div class="ambient-orbs" aria-hidden="true">
         <span class="orb orb-one"></span>
         <span class="orb orb-two"></span>
         <span class="orb orb-three"></span>
     </div>
-    
-    <header class="site-header">
-        <img src="barking-dagenham-college-logo.png" alt="BDC Logo" class="site-logo"> <!--Added the BDC logo to the header-->
-    </header>
 
     <!-- hub-body spacing keeps the floating controls clear of content sections. -->
     <button id="menuBtn" class="menu-btn" aria-label="Menu">
@@ -80,5 +80,32 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+let hue = 0;
+
+setInterval(() => {
+    hue = (hue + 0.4) % 360;
+    document.documentElement.style.setProperty('--global-hue', hue + 'deg');
+}, 60);
+</script>
+<script>
+function shiftMoodColor(colour) {
+    document.documentElement.style.setProperty('--c1', colour);
+}
+
+document.querySelectorAll('.mood').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const mood = btn.dataset.mood;
+        const map = {
+            happy: '#ffd642',
+            sad: '#5a7bdc',
+            angry: '#ff4f4f',
+            tired: '#9c6cc7',
+            neutral: '#faaf3a'
+        };
+        shiftMoodColor(map[mood]);
+    });
+});
+</script>
 </body>
 </html>

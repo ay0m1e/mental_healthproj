@@ -10,6 +10,10 @@
     <script src="logo-scroll.js"></script>
 </head>
 <body class="landing-body">
+    <div class="logo-wrapper">
+        <img src="barking-dagenham-college-logo.png" alt="BDC Logo">
+        <img src="logo-main.png" alt="Puzzle Heart Logo">
+    </div>
     <div class="ambient-orbs" aria-hidden="true">
         <span class="orb orb-one"></span>
         <span class="orb orb-two"></span>
@@ -18,7 +22,7 @@
 
     <!-- Landing header introduces the app with a supportive prompt for visitors. -->
     <header class="landing-header" role="banner">
-         <img src="barking-dagenham-college-logo.png" alt="BDC Logo" class="site-logo"> <!--Added the BDC logo to the header-->
+
         <h1>Welcome to BDC Minds Matter</h1>
         <p class="landing-subtitle">Take a moment to check in with yourself and follow the support that fits your mood.</p>
     </header>
@@ -42,7 +46,6 @@
             <p id="mood-message" class="mood-message" aria-live="polite"></p>
 
             <!-- Primary link reiterates the next step for users who prefer text guidance. -->
-            <a class="primary-link" href="main-page.html" data-mood="neutral">Start with today's support</a>
             <p class="footer-tagline">BDC support is always here when you need a reset.</p>
         </section>
     </main>
@@ -84,6 +87,33 @@
             });
         });
     </script>
+    <script>
+let hue = 0;
+
+setInterval(() => {
+    hue = (hue + 0.4) % 360;
+    document.documentElement.style.setProperty('--global-hue', hue + 'deg');
+}, 60);
+</script>
+<script>
+function shiftMoodColor(colour) {
+    document.documentElement.style.setProperty('--c1', colour);
+}
+
+document.querySelectorAll('.mood').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const mood = btn.dataset.mood;
+        const map = {
+            happy: '#ffd642',
+            sad: '#5a7bdc',
+            angry: '#ff4f4f',
+            tired: '#9c6cc7',
+            neutral: '#faaf3a'
+        };
+        shiftMoodColor(map[mood]);
+    });
+});
+</script>
   
 </body>
 </html>
