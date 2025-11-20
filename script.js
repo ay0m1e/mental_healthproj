@@ -77,6 +77,16 @@ document.querySelectorAll(".mood").forEach((emoji) => {
     const mood = element.getAttribute("data-mood");
     if (mood) {
       sessionStorage.setItem("selectedMood", mood);
+      // Update affirmation card with selected mood color
+      const affirmationCard = document.querySelector('.affirmation-card');
+      if (affirmationCard) {
+        // Remove all mood classes first
+        affirmationCard.removeAttribute('data-mood');
+        // Add the selected mood class
+        affirmationCard.setAttribute('data-mood', mood);
+      }
+      // Fetch and display new affirmation with the selected mood
+      displayAffirmation();
     }
   });
 });
