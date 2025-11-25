@@ -187,3 +187,30 @@ menu.addEventListener(
 // Initialise
 updateDate();
 displayAffirmation();
+
+// Hide/reveal header on scroll without affecting existing IDs/classes
+(() => {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  let lastY = window.scrollY;
+  let ticking = false;
+
+  const handleScroll = () => {
+    const currentY = window.scrollY;
+    if (currentY > lastY + 4 && currentY > 10) {
+      header.classList.add('is-hidden');
+    } else if (currentY < lastY - 4) {
+      header.classList.remove('is-hidden');
+    }
+    lastY = currentY;
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
