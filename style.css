@@ -1,3 +1,9 @@
+/* Prevent horizontal scrolling on mobile */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 :root {
     --c1: #ff4f8f;
     --c2: #faaf3a;
@@ -26,6 +32,7 @@
     --glass-surface: rgba(255,255,255,0.65);
     --glass-strong: rgba(255,255,255,0.85);
     --border-subtle: rgba(28,46,74,0.14);
+    --border-strong: rgba(28,46,74,0.28);
     --shadow-teal: 0 0 32px rgba(62,231,201,0.45);
     --shadow-pink: 0 0 32px rgba(255,158,203,0.35);
     --shadow-blue: 0 0 32px rgba(3,54,138,0.35);
@@ -281,6 +288,7 @@ body::before {
     font-size: clamp(1.05rem, 2.4vw, 1.2rem);
     color: var(--text-medium);
     line-height: 1.7;
+    text-align: center;
 }
 
 .landing-main {
@@ -800,10 +808,7 @@ input[type="submit"]:hover {
     gap: 8px;
 }
 
-.contact-info a:hover {
-    color: var(--pink);
-    box-shadow: 0 16px 36px var(--border-subtle), var(--shadow-pink);
-}
+
 
 .affirmation-card {
     background: linear-gradient(140deg, rgba(255,255,255,0.86), rgba(255,255,255,0.74));
@@ -961,7 +966,7 @@ footer {
 
 .footer-link {
     color: #000000;
-    text-decoration: none;
+    text-decoration: underline;
     letter-spacing: 0.02em;
     font-weight: 500;
     opacity: 0.9;
@@ -972,7 +977,7 @@ footer {
 .footer-link:focus-visible {
     color: #000000;
     opacity: 1;
-    text-decoration: underline;
+    text-decoration: none;
     text-decoration-thickness: 2px;
     text-decoration-color: #000000;
 }
@@ -980,6 +985,7 @@ footer {
 .footer-link.footer-link-icon {
     display: inline-flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 8px;
 }
 
@@ -988,8 +994,20 @@ footer {
     line-height: 1;
 }
 
+.footer-icon:hover {
+    text-decoration: none;
+}
+
+.footer-link-icon {
+    text-decoration: none
+}
+
 .footer-link-label {
     display: inline-block;
+}
+
+.footer-link-label:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 600px) {
@@ -1034,6 +1052,10 @@ footer {
     color: #000000;
 }
 
+.footer-copyright {
+    margin: 0 auto;
+}
+
 .date {
     color: #000000;
     font-size: 0.96rem;
@@ -1049,16 +1071,16 @@ footer {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: var(--light-surface);
-    border: 2px solid var(--border-subtle);
-    border-radius: 8px;
+    border: 2px solid var(--border-strong);
+    border-radius: 20px;
     font-weight: 800;
     color: var(--text-strong);
     text-decoration: none;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     -webkit-tap-highlight-color: transparent;
     position: relative;
     padding: 0;
@@ -1068,10 +1090,15 @@ footer {
 .back-btn::before {
     content: '←';
     font-size: 1.6rem;
+    font-weight: 900;
     line-height: 1;
-    display: block;
-    position: relative;
-    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     margin: 0;
     padding: 0;
 }
@@ -1079,14 +1106,14 @@ footer {
 .back-btn:hover,
 .back-btn:focus {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 12px var(--bright-teal);
     outline: none;
     background: white;
 }
 
 .back-btn:active {
     transform: translateY(0);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 12px var(--bright-teal);
 }
 
 .back-btn span {
@@ -1189,6 +1216,7 @@ footer {
 @media (max-width: 480px) {
     header h1 {
         font-size: clamp(1.8rem, 8.5vw, 2.14rem);
+        text-align: center; 
     }
 
     .affirmation-card {
