@@ -4,24 +4,21 @@ html, body {
     overflow-x: hidden;
 }
 
+/* Core colour system: single numeric hue + derived HSL stops for smooth transitions */
 :root {
-    --c1: #ff4f8f;
-    --c2: #faaf3a;
-    --c3: #ffd642;
-    --c4: #6d4f99;
-    --c5: #9c6cc7;
+    /* Single rotating hue that drives all derived stops */
+    --hue: 0deg;
+    /* Keep global tint var (used by JS for mood tinting) */
     --global-hue: 0deg;
-}
 
-@keyframes colorCycle {
-    0%   { --c1:#ff4f8f; --c2:#faaf3a; --c3:#ffd642; --c4:#6d4f99; --c5:#9c6cc7; }
-    25%  { --c1:#faaf3a; --c2:#ffd642; --c3:#6d4f99; --c4:#9c6cc7; --c5:#ff4f8f; }
-    50%  { --c1:#ffd642; --c2:#6d4f99; --c3:#9c6cc7; --c4:#ff4f8f; --c5:#faaf3a; }
-    75%  { --c1:#6d4f99; --c2:#9c6cc7; --c3:#ff4f8f; --c4:#faaf3a; --c5:#ffd642; }
-    100% { --c1:#ff4f8f; --c2:#faaf3a; --c3:#ffd642; --c4:#6d4f99; --c5:#9c6cc7; }
-}
+    /* Derived gradient colours (use calc() offsets so transitions are numeric) */
+    --c1: hsl(var(--hue), 88%, 70%);
+    --c2: hsl(calc(var(--hue) + 40deg), 90%, 65%);
+    --c3: hsl(calc(var(--hue) + 120deg), 85%, 72%);
+    --c4: hsl(calc(var(--hue) + 200deg), 75%, 68%);
+    --c5: hsl(calc(var(--hue) + 280deg), 80%, 62%);
 
-:root {
+    /* Other design tokens remain unchanged */
     --bright-teal: #03f0c4;
     --deep-teal: #0a8871;
     --lavender: #c6b7ff;
@@ -54,6 +51,12 @@ html, body {
     --logo-lilac: #9c6cc7;
 }
 
+/* Smooth hue rotation (0deg -> 360deg) — animates numeric angle, so transitions are perfectly smooth */
+@keyframes smoothHue {
+    from { --hue: 0deg; }
+    to   { --hue: 360deg; }
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -81,6 +84,9 @@ body {
     overflow-x: hidden;
 }
 
+/* Background layers driven by the HSL-derived variables.
+   The hue rotation runs smoothly via smoothHue animation.
+   cloudShift remains to move background positions independently. */
 body::before {
     content: "";
     position: fixed;
@@ -96,8 +102,8 @@ body::before {
     background-size: 200% 200%;
     animation:
         cloudShift 28s ease-in-out infinite alternate,
-        colorCycle 60s linear infinite;
-    filter: hue-rotate(var(--global-hue));
+        smoothHue 60s linear infinite;
+    filter: hue-rotate(var(--global-hue)); /* keeps JS mood tinting intact */
 }
 
 .landing-body,
@@ -112,12 +118,12 @@ body::before {
 
 .landing-body {
     justify-content: center;
-    padding-top: var(--header-height);
+    padding-top: calc(var(--header-height));
     padding-bottom: clamp(64px, 18vh, 144px);
 }
 
 .hub-body {
-    padding-top: var(--header-height);
+    padding-top: calc(var(--header-height));
 }
 
 .ambient-orbs {
@@ -418,7 +424,7 @@ body::before {
 }
 
 .mood[data-mood="sad"]:hover {
-    box-shadow: 0 8px 25px rgba(3, 54, 138, 0.6), 0 15px 50px rgba(3, 54, 138, 0.4), 0 0 60px rgba(3, 54, 138, 0.2);
+    box-shadow: 0 8px 25px rgba(5, 145, 180, 0.6), 0 15px 50px rgba(5, 145, 180, 0.4), 0 0 60px rgba(5, 145, 180, 0.2);
     animation: float 1.6s ease-in-out infinite;
     transform: translateY(-5px) scale(1.05);
 }
@@ -430,13 +436,13 @@ body::before {
 }
 
 .mood[data-mood="tired"]:hover {
-    box-shadow: 0 8px 25px rgba(156, 108, 199, 0.6), 0 15px 50px rgba(156, 108, 199, 0.4), 0 0 60px rgba(156, 108, 199, 0.2);
+    box-shadow: 0 8px 25px rgba(156, 108, 199, 0.7), 0 15px 50px rgba(156, 108, 199, 0.5), 0 0 60px rgba(156, 108, 199, 0.3);
     animation: wave 1.4s ease-in-out infinite;
     transform: translateY(-5px) scale(1.05);
 }
 
 .mood[data-mood="neutral"]:hover {
-    box-shadow: 0 8px 25px rgba(198, 183, 255, 0.7), 0 15px 50px rgba(198, 183, 255, 0.5), 0 0 60px rgba(198, 183, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(9, 25, 163, 0.7), 0 15px 50px rgba(9, 25, 163, 0.5), 0 0 60px rgba(9, 25, 163, 0.3);
     animation: float 1.4s ease-in-out infinite;
     transform: translateY(-5px) scale(1.05);
 }
@@ -535,6 +541,7 @@ body::before {
     z-index: 1;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
+    margin-top: calc(var(--header-height) + 20px);
 }
 
 .container::before {
