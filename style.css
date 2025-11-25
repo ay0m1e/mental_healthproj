@@ -176,7 +176,7 @@ body::before {
     backdrop-filter: blur(var(--blur-base));
     z-index: 9999;
     isolation: isolate;
-    pointer-events: none;
+    pointer-events: auto;
     transition: transform 0.28s ease;
 }
 
@@ -598,7 +598,7 @@ input[type="submit"]:hover {
 .menu-btn {
     position: absolute;
     left: clamp(18px, 5vw, 32px);
-    top: calc(var(--header-height) + clamp(8px, 2vw, 14px));
+    top: clamp(8px, 2vw, 14px);
     background: var(--glass-strong);
     border: 1px solid var(--border-subtle);
     box-shadow: 0 20px 50px var(--border-subtle), var(--shadow-teal);
@@ -960,7 +960,7 @@ footer {
 }
 
 .footer-link {
-    color: var(--text-strong);
+    color: #000000;
     text-decoration: none;
     letter-spacing: 0.02em;
     font-weight: 500;
@@ -970,11 +970,11 @@ footer {
 
 .footer-link:hover,
 .footer-link:focus-visible {
-    color: var(--deep-teal);
+    color: #000000;
     opacity: 1;
     text-decoration: underline;
     text-decoration-thickness: 2px;
-    text-decoration-color: var(--deep-teal);
+    text-decoration-color: #000000;
 }
 
 .footer-link.footer-link-icon {
@@ -995,6 +995,22 @@ footer {
 @media (max-width: 600px) {
     .footer-links {
         gap: 10px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-inner {
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-contact {
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-contact address {
+        text-align: center;
     }
 }
 
@@ -1015,7 +1031,7 @@ footer {
 .footer-contact address {
     font-style: normal;
     line-height: 1.6;
-    color: var(--text-soft);
+    color: #000000;
 }
 
 .date {
