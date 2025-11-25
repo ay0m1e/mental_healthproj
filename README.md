@@ -3,4 +3,4 @@ A mental health website that displays positive affirmations when scanned from an
 
 
 Website Link
-https://ay0m1e.github.io/mental_healthproj/
+(https://ay0m1e.github.io/mental_healthproj/)
