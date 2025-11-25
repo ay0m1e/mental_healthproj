@@ -948,6 +948,76 @@ footer {
     color: #000000;
 }
 
+/* Before: default blue hyperlinks with permanent underline
+   After: themed colour, no underline, subtle hover state */
+.footer-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6px 0;
+}
+
+.footer-link {
+    color: var(--text-strong);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    opacity: 0.9;
+    transition: color 0.2s ease, opacity 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+    color: var(--deep-teal);
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--deep-teal);
+}
+
+.footer-link.footer-link-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-icon {
+    font-size: 0.95em;
+    line-height: 1;
+}
+
+.footer-link-label {
+    display: inline-block;
+}
+
+@media (max-width: 600px) {
+    .footer-links {
+        gap: 10px;
+    }
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.footer-contact address {
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--text-soft);
+}
+
 .date {
     color: #000000;
     font-size: 0.96rem;
