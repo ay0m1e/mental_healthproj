@@ -1,9 +1,23 @@
-// Elements
+// -------------------------------
+// BASIC PAGE ELEMENTS
+// -------------------------------
 const affirmationElement = document.getElementById("affirmation");
 const refreshBtn = document.getElementById("refreshBtn");
 const dateElement = document.getElementById("date");
 
-// Display current date
+// Menu elements
+const menu = document.getElementById("menu");
+const menuBtn = document.getElementById("menuBtn");
+const closeBtn = document.getElementById("closeBtn");
+const body = document.body;
+
+// Make menu non-interactive on load
+menu.setAttribute("inert", "");
+
+
+// -------------------------------
+// DATE DISPLAY
+// -------------------------------
 function updateDate() {
   const options = {
     weekday: "long",
@@ -15,7 +29,10 @@ function updateDate() {
   dateElement.textContent = today.toLocaleDateString("en-GB", options);
 }
 
-// Fetch affirmation from backend
+
+// -------------------------------
+// FETCH AFFIRMATION
+// -------------------------------
 async function fetchAffirmation(mood = "neutral") {
   try {
     console.log("Sending mood:", mood);
@@ -25,90 +42,104 @@ async function fetchAffirmation(mood = "neutral") {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mood }),
     });
+
     if (!res.ok) throw new Error("API request failed");
+
     const data = await res.json();
     return data.affirmation || "You’re doing brilliantly today.";
+
   } catch (err) {
     console.error(err);
     return "Stay mindful today – you’ve got this.";
   }
 }
 
-// Display affirmation with small fade animation
+
+// -------------------------------
+// DISPLAY AFFIRMATION (WITH ANIMATION)
+// -------------------------------
 async function displayAffirmation() {
-  affirmationElement.style.animation = 'none';
+  affirmationElement.style.animation = "none";
+
   setTimeout(async () => {
-    const storedMood = sessionStorage.getItem('selectedMood') || "neutral";
+    const storedMood = sessionStorage.getItem("selectedMood") || "neutral";
     affirmationElement.textContent = "Fetching your affirmation...";
     const affirmation = await fetchAffirmation(storedMood);
     affirmationElement.textContent = affirmation;
-    affirmationElement.style.animation = 'slideIn 0.5s ease-out';
+    affirmationElement.style.animation = "slideIn 0.5s ease-out";
   }, 50);
 }
 
-// Refresh button listener
-refreshBtn.addEventListener('click', displayAffirmation);
+refreshBtn.addEventListener("click", displayAffirmation);
 
-// Smooth click handling function
+
+// -------------------------------
+// SMOOTH CLICK HANDLER (LINKS)
+// -------------------------------
 function handleSmoothClick(element, callback) {
   element.addEventListener("click", function (e) {
     e.preventDefault();
     const href = this.getAttribute("href");
 
-    // Add click effect - faster animation
     this.style.transform = "scale(0.96)";
     this.style.transition = "transform 0.08s ease-out";
 
-    // Execute callback if provided
     if (typeof callback === "function") {
       callback(this);
     }
 
-    // Navigate after a very short delay for the animation
     setTimeout(() => {
       window.location.href = href;
-    }, 80); // Reduced from 150ms to 80ms for faster transition
+    }, 80);
   });
 }
 
-// Smooth emoji click handling
+
+// -------------------------------
+// EMOJI SELECT + MOOD SET
+// -------------------------------
 document.querySelectorAll(".mood").forEach((emoji) => {
   handleSmoothClick(emoji, function (element) {
     const mood = element.getAttribute("data-mood");
+
     if (mood) {
       sessionStorage.setItem("selectedMood", mood);
-      // Update affirmation card with selected mood color
-      const affirmationCard = document.querySelector('.affirmation-card');
+
+      const affirmationCard = document.querySelector(".affirmation-card");
       if (affirmationCard) {
-        // Remove all mood classes first
-        affirmationCard.removeAttribute('data-mood');
-        // Add the selected mood class
-        affirmationCard.setAttribute('data-mood', mood);
+        affirmationCard.removeAttribute("data-mood");
+        affirmationCard.setAttribute("data-mood", mood);
       }
-      // Fetch and display new affirmation with the selected mood
+
       displayAffirmation();
     }
   });
 });
 
-// Primary link click handling
 const primaryLink = document.querySelector(".primary-link");
-if (primaryLink) {
-  handleSmoothClick(primaryLink);
-}
+if (primaryLink) handleSmoothClick(primaryLink);
 
-// Menu functionality
+
+// -------------------------------
+// MENU FUNCTIONALITY (INERT FIX)
+// -------------------------------
 function toggleMenu(open) {
   const isOpening =
     open === true || (open !== false && !menu.classList.contains("active"));
 
   if (isOpening) {
+    // OPEN MENU
     menu.classList.add("active");
+    menu.removeAttribute("inert");
     body.style.overflow = "hidden";
+
     document.addEventListener("touchmove", preventScroll, { passive: false });
-  } else {
+  } else {    
+    // CLOSE MENU
     menu.classList.remove("active");
+    menu.setAttribute("inert", "");
     body.style.overflow = "";
+
     document.removeEventListener("touchmove", preventScroll);
   }
 }
@@ -121,7 +152,6 @@ function preventScroll(e) {
   }
 }
 
-// Click events
 menuBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   toggleMenu();
@@ -132,12 +162,21 @@ closeBtn.addEventListener("click", (e) => {
   toggleMenu(false);
 });
 
-// Touch events for better mobile support
+// Close menu with ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && menu.classList.contains("active")) {
+    toggleMenu(false);
+  }
+});
+
+
+
+// -------------------------------
+// TOUCH SUPPORT
+// -------------------------------
 menuBtn.addEventListener(
   "touchstart",
-  (e) => {
-    e.stopPropagation();
-  },
+  (e) => e.stopPropagation(),
   { passive: true }
 );
 
@@ -150,7 +189,10 @@ closeBtn.addEventListener(
   { passive: true }
 );
 
-// Close menu when clicking outside or swiping left on menu
+
+// -------------------------------
+// CLOSE MENU ON OUTSIDE CLICK
+// -------------------------------
 document.addEventListener("click", (e) => {
   const isClickInside = menu.contains(e.target) || menuBtn.contains(e.target);
   if (!isClickInside && menu.classList.contains("active")) {
@@ -158,15 +200,16 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Handle menu swipe to close
+
+// -------------------------------
+// SWIPE LEFT TO CLOSE MENU
+// -------------------------------
 let touchStartX = 0;
 let touchEndX = 0;
 
 menu.addEventListener(
   "touchstart",
-  (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  },
+  (e) => (touchStartX = e.changedTouches[0].screenX),
   { passive: true }
 );
 
@@ -174,23 +217,19 @@ menu.addEventListener(
   "touchend",
   (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    const touchDiff = touchStartX - touchEndX;
-
-    // If swiped left more than 50px, close the menu
-    if (touchDiff > 50) {
+    if (touchStartX - touchEndX > 50) {
       toggleMenu(false);
     }
   },
   { passive: true }
 );
 
-// Initialise
-updateDate();
-displayAffirmation();
 
-// Hide/reveal header on scroll without affecting existing IDs/classes
+// -------------------------------
+// HEADER HIDE ON SCROLL
+// -------------------------------
 (() => {
-  const header = document.querySelector('.site-header');
+  const header = document.querySelector(".site-header");
   if (!header) return;
 
   let lastY = window.scrollY;
@@ -198,19 +237,32 @@ displayAffirmation();
 
   const handleScroll = () => {
     const currentY = window.scrollY;
+
     if (currentY > lastY + 4 && currentY > 10) {
-      header.classList.add('is-hidden');
+      header.classList.add("is-hidden");
     } else if (currentY < lastY - 4) {
-      header.classList.remove('is-hidden');
+      header.classList.remove("is-hidden");
     }
+
     lastY = currentY;
     ticking = false;
   };
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(handleScroll);
-      ticking = true;
-    }
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
 })();
+
+
+// -------------------------------
+// INIT
+// -------------------------------
+updateDate();
+displayAffirmation();
