@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <script src="logo-scroll.js"></script>
+    <script src="touch-feedback.js"></script>
 </head>
 <body class="landing-body">
     <header class="site-header">
@@ -20,10 +21,8 @@
         <span class="orb orb-one"></span>
         <span class="orb orb-two"></span>
         <span class="orb orb-three"></span>
-        <span></span>
     </div>
 
-    <!-- Landing header introduces the app with a supportive prompt for visitors. -->
     <header class="landing-header" role="banner">
 
         <h1>Welcome to BDC Minds Matter</h1>
@@ -35,18 +34,16 @@
             <h2 id="mood-title">How are you feeling today?</h2>
             <p class="mood-lead">Choose the emoji that matches your mood to continue to your personalised support hub.</p>
 
-            <!-- Mood options stay as anchors so navigation remains accessible while JS hooks keep working. -->
             <div class="mood-options" role="group" aria-label="Mood options">
                 <a href="main-page.html" class="mood wave" data-mood="happy" aria-label="Feeling happy">😊</a>
                 <a href="main-page.html" class="mood spin" data-mood="neutral" aria-label="Feeling neutral">😐</a>
                 <a href="main-page.html" class="mood bounce" data-mood="sad" aria-label="Feeling sad">😔</a>
                 <a href="main-page.html" class="mood shake" data-mood="angry" aria-label="Feeling angry">😠</a>
-                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😫</a>
+                <a href="main-page.html" class="mood float" data-mood="tired" aria-label="Feeling tired">😴</a>
             </div>
 
             <p id="mood-message" class="mood-message" aria-live="polite"></p>
 
-            <!-- Primary link reiterates the next step for users who prefer text guidance. -->
             <p class="footer-tagline">BDC support is always here when you need a reset.</p>
         </section>
     </main>
@@ -84,15 +81,14 @@
             <p class="footer-copyright">© 2025 BDC College. All rights reserved.</p>
             
         </div>
+
     </footer>
     
     <script>
-        // Handle mood selection
         document.querySelectorAll('.mood').forEach(button => {
             button.addEventListener('click', event => {
             const mood = button.getAttribute('data-mood');
             if (mood) {
-                // Save mood so main-page.html can use it
                 sessionStorage.setItem('selectedMood', mood);
             }
             });
