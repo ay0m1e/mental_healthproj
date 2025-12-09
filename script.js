@@ -260,9 +260,57 @@ menu.addEventListener(
   );
 })();
 
+// ===============================
+// Anonymous Note Modal Logic
+// ===============================
 
-// -------------------------------
-// INIT
-// -------------------------------
+const noteModal = document.getElementById("noteModal");
+const openNoteBtn = document.getElementById("openNoteBtn");
+const closeNoteBtn = document.getElementById("closeNoteBtn");
+const submitNoteBtn = document.getElementById("submitNoteBtn");
+const noteInput = document.getElementById("noteInput");
+
+function openNoteModal() {
+    noteModal.classList.add("active");
+    noteModal.setAttribute("aria-hidden", "false");
+    noteInput.focus();
+}                                                                                                                                                          
+
+function closeNoteModal() {
+    noteModal.classList.remove("active");
+    noteModal.setAttribute("aria-hidden", "true");
+    noteInput.value = "";
+    openNoteBtn.focus();
+}
+
+openNoteBtn.addEventListener("click", openNoteModal);
+closeNoteBtn.addEventListener("click", closeNoteModal);
+
+// Clicking backdrop closes modal
+noteModal.addEventListener("click", (e) => {
+    if (e.target === noteModal) closeNoteModal();
+});
+
+// ESC key closes modal
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && noteModal.classList.contains("active")) {
+        closeNoteModal();
+    }
+});
+
+// Temporary submit handler (no backend yet)
+submitNoteBtn.addEventListener("click", () => {
+    const text = noteInput.value.trim();
+    if (!text) return;
+
+    // When backend exists, plug fetch() here.
+    console.log("Anonymous note submitted (frontend only):", text);
+
+    closeNoteModal();
+
+    alert("Your anonymous note has been saved locally for now 💛\n(Backend will be added soon)");
+});
+
+
 updateDate();
 displayAffirmation();
