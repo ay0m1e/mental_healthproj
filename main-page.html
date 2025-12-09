@@ -73,6 +73,25 @@
                 </svg>
                 New Affirmation
             </button>
+
+            <button id="openNoteBtn" class="note-btn">Write Anonymous Note</button>
+
+<!-- Modal Overlay -->
+<div id="noteModal" class="note-modal" aria-hidden="true">
+    <div class="note-modal-backdrop"></div>
+
+    <div class="note-modal-content" role="dialog" aria-modal="true" aria-labelledby="noteModalTitle">
+        <button class="note-modal-close" id="closeNoteBtn" aria-label="Close note dialog">✕</button>
+
+        <h2 id="noteModalTitle">Write an Anonymous Note</h2>
+        <p class="note-modal-subtext">Nothing is stored with your identity — this is simply a private way to express yourself.</p>
+
+        <textarea id="noteInput" placeholder="Type your note here..." rows="6"></textarea>
+
+        <button id="submitNoteBtn" class="note-submit-btn">Submit Note</button>
+    </div>
+</div>
+
         </main>
 
         <footer>
